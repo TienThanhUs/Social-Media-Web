@@ -14,18 +14,20 @@
 - likes: lưu like của các bài viết, lưu thêm thông tin của những người like
 
 ## Thiết kế ERD
+
+```mermaid
 erDiagram
-Users {
-UUID id PK
-string username
-string email
-string password_hash
-timestamp created_at
-}
+    Users {
+        UUID id PK
+        string username UK
+        string email UK
+        string password_hash
+        timestamp created_at
+    }
 
     UserFollows {
-        UUID follower_id PK, FK
-        string following_id PK, FK
+        UUID follower_id PK, FK "Người đi follow"
+        UUID following_id PK, FK "Người được follow"
         timestamp created_at
     }
 
@@ -51,14 +53,15 @@ timestamp created_at
         timestamp created_at
     }
 
-    Users ||--o{ UserFollows : "follower (đi follow)"
-    Users ||--o{ UserFollows : "following (được follow)"
+    Users ||--o{ UserFollows : "follower"
+    Users ||--o{ UserFollows : "following"
     Users ||--o{ Posts : "tạo"
     Users ||--o{ Comments : "viết"
     Posts ||--o{ Comments : "chứa"
-    Comments ||--o{ Comments : "trả lời (reply)"
+    Comments |o--o{ Comments : "trả lời"
     Users ||--o{ Likes : "thực hiện"
     Posts ||--o{ Likes : "nhận"
+```
 
 ## Kiến trúc sử dụng 
 - Layer architecture theo mô hình mvc, có thể cải tiến lên clean architecture nếu hệ thống lớn lên
