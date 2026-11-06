@@ -1,0 +1,12 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/socialappdb
+    username: socialapp
+    password: secret
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+jwt:
+  secret: 5Sy9f5AIGev5kONCQJNXGUebgUU5fW5Zm2XkCcwqlyT+7FUpY9RGQUa32YLWbYcW
+  expiration : 10000
