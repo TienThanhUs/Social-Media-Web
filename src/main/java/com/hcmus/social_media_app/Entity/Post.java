@@ -14,6 +14,13 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Post {
+    public Post(User user, String content, String imageUrl, LocalDateTime createdAt) {
+        this.user = user;
+        this.content = content;
+        this.imageUrl = imageUrl;
+        this.createdAt = createdAt;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
