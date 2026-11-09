@@ -81,7 +81,7 @@ erDiagram
 ### 2. Bài viết (Posts)
 - Tạo bài viết: POST /api/v1/posts
 - Lấy danh sách Feed (có phân trang): GET /api/v1/posts
-- Xem chi tiết 1 bài viết: GET /api/v1/posts/{id}
+- Xem danh sách bài viết của 1 tác giả (có phân trang): GET /api/v1/posts/author/{id}
 - Cập nhật bài viết: PUT /api/v1/posts/{id} (hoặc PATCH)
 - Xóa bài viết: DELETE /api/v1/posts/{id}
 

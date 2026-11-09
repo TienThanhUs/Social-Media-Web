@@ -58,4 +58,18 @@ public class PostService {
         return postJpaRepository.findByUserIdOrderByCreatedAtDesc(id, pageable)
                 .map(PostResponse::fromEntity);
     }
+
+    @Transactional
+    public PostResponse updatePost(Long id, CreatePostRequest postRequest, String email)
+    {
+        Post post = postJpaRepository.findById(id).orElseThrow(() -> new RuntimeException("Post không tồn tại !!!"));
+        User user = userJpaRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("User không tồn tại !!!"));
+        if (!post.getUser().getId().equals(user.getId())) {
+            throw new AccessDeniedException("Bạn không có quyền sửa bài viết này !!!");
+        }
+        post.setContent(postRequest.getContent());
+        post.setImageUrl(postRequest.getImageUrl());
+        Post updatedPost = postJpaRepository.save(post);
+        return PostResponse.fromEntity(updatedPost);
+    }
 }

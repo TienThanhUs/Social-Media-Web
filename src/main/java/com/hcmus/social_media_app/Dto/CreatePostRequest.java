@@ -11,6 +11,5 @@ public class CreatePostRequest {
     @NotBlank(message = "Nội dung bài viết không được để trống")
     @Size(max = 5000, message = "Nội dung không vượt quá 5000 ký tự")
     private String content;
-
     private String imageUrl;
 }

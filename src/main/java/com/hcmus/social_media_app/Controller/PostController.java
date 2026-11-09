@@ -52,4 +52,12 @@ public class PostController {
         Pageable pageable = PageRequest.of(page, size);
         return ResponseEntity.ok(postService.getAllPostOfAuthor(id, pageable));
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<PostResponse> revisePost(@PathVariable Long id, @Valid @RequestBody CreatePostRequest postRequest, Authentication authentication)
+    {
+        String email = authentication.getName();
+        PostResponse response = postService.updatePost(id, postRequest, email);
+        return ResponseEntity.ok(response);
+    }
 }
