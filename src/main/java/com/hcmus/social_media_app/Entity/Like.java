@@ -15,6 +15,12 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Like {
+    public Like(User user, Post post) {
+        this.user = user;
+        this.post = post;
+        this.createdAt = LocalDateTime.now();
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
