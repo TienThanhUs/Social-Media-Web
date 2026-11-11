@@ -4,8 +4,11 @@ import com.hcmus.social_media_app.Dto.exception.ErrorException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import java.util.stream.Collectors;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -38,5 +41,18 @@ public class GlobalExceptionHandler {
                 "Bạn không có quyền thực hiện hành động này"
         );
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body(errorException);
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<ErrorException> handleValidationExceptions(MethodArgumentNotValidException ex) {
+        String errorMessage = ex.getBindingResult().getFieldErrors().stream()
+                .map(error -> error.getDefaultMessage())
+                .collect(Collectors.joining(", "));
+        ErrorException errorException = new ErrorException(
+                HttpStatus.BAD_REQUEST.value(),
+                errorMessage,
+                "Dữ liệu đầu vào không hợp lệ"
+        );
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorException);
     }
 }

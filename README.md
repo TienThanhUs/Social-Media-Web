@@ -87,10 +87,8 @@ erDiagram
 
 ### 3. Tương tác Bài viết (Likes & Comments)
 - Thích bài viết: POST /api/v1/posts/{postId}/likes
-- Bỏ thích bài viết (Unlike): DELETE /api/v1/posts/{postId}/likes
 - Lấy danh sách comment của bài: GET /api/v1/posts/{postId}/comments
 - Viết comment cho bài: POST /api/v1/posts/{postId}/comments
-
 ### 4. Quan hệ người dùng (Users / Follow)
 - Follow người khác: POST /api/v1/users/{userId}/follow
 - Unfollow người khác: DELETE /api/v1/users/{userId}/follow
