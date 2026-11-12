@@ -10,6 +10,8 @@ import com.hcmus.social_media_app.Repository.CommentJpaRepository;
 import com.hcmus.social_media_app.Repository.PostJpaRepository;
 import com.hcmus.social_media_app.Repository.UserJpaRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,5 +35,13 @@ public class CommentService {
         Comment savedComment = commentJpaRepository.save(comment);
 
         return PostCommentResponse.fromEntity(savedComment);
+    }
+    @Transactional(readOnly = true)
+    public Page<PostCommentResponse> getAllCommentFromPost(Long postId, Pageable pageable) {
+        if (!postJpaRepository.existsById(postId)) {
+            throw new ResourceNotFoundException("Bài viết không tồn tại !!!");
+        }
+        return commentJpaRepository.findByPostId(postId, pageable)
+                .map(PostCommentResponse::fromEntity);
     }
 }
